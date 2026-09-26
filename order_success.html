@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยืนยันคำสั่งเช่า & ติดตามสถานะ #RC-2026-8891 | Re:Closet</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Prompt:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-color: #F6F4EF;
+            --card-bg: #FFFFFF;
+            --text-main: #1A1918;
+            --text-muted: #666059;
+            --brand-green: #2D4030;
+            --brand-sage: #8A9A86;
+            --brand-terracotta: #C86D51;
+            --brand-cream: #EFE8DC;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--brand-green);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--brand-green);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .success-card {
+            background: var(--brand-green);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 35px 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 50%;
+        }
+
+        .order-id-badge {
+            display: inline-block;
+            background: var(--brand-terracotta);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 25px;
+        }
+
+        .card-box {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--brand-green);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .item-detail-box {
+            display: flex;
+            gap: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #EEE;
+            margin-bottom: 20px;
+        }
+
+        .item-img {
+            width: 90px;
+            height: 120px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+        }
+
+        .rental-dates-banner {
+            background: var(--brand-cream);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .timeline {
+            list-style: none;
+            position: relative;
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: #E0E0E0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #CCC;
+        }
+
+        .timeline-item.done::before {
+            background: var(--brand-green);
+        }
+
+        .timeline-item.active::before {
+            background: var(--brand-terracotta);
+            box-shadow: 0 0 0 4px rgba(200, 109, 81, 0.2);
+        }
+
+        .return-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .return-tab {
+            border: 1.5px solid #DDD;
+            background: #FAF9F6;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .return-tab.active {
+            border-color: var(--brand-green);
+            background: var(--brand-green);
+            color: white;
+        }
+
+        .action-container {
+            background: #FAF9F6;
+            border: 1px solid #EAE6DF;
+            border-radius: var(--radius-md);
+            padding: 18px;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: var(--brand-green);
+            color: white;
+            padding: 12px 0;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #1E2B20;
+        }
+
+        .no-wash-card {
+            background: #FEF3C7;
+            border: 1px solid #F59E0B;
+            border-radius: var(--radius-md);
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #92400E;
+            margin-top: 20px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--brand-green);
+            color: var(--brand-green);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: var(--brand-green);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="rental_clothes.html" class="logo font-serif">Re:Closet</a>
+            <a href="rental_clothes.html" class="nav-link">🛍️ เลือกเช่าชุดเพิ่มเติม</a>
+        </header>
+
+        <div class="success-card">
+            <div class="success-icon">🎉</div>
+            <h1 class="font-serif" style="font-size: 1.8rem; font-weight: 700;">ยืนยันการจองชุดสำเร็จ!</h1>
+            <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 4px;">
+                เราได้รับยอดชำระเงินเรียบร้อยแล้ว ทีมงานกำลังเตรียมจัดส่งชุดสุดพิเศษให้คุณ
+            </p>
+            <span class="order-id-badge">หมายเลขคำสั่งเช่า: #RC-2026-8891</span>
+        </div>
+
+        <div class="dashboard-grid">
+            <div>
+                <div class="card-box">
+                    <div class="card-title">
+                        <span>👗 ชุดที่เลือกเช่า</span>
+                        <button class="btn-outline" onclick="window.print()">🖨️ พิมพ์ใบเสร็จ</button>
+                    </div>
+
+                    <div class="item-detail-box">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=80" alt="dress" class="item-img">
+                        <div>
+                            <h3 style="font-size: 1rem; color: var(--brand-green);">ZARA Silk-Blend Pleated Satin Midi Dress</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0;">
+                                ไซส์: <strong>SIZE M</strong> | สภาพสินค้า: <strong>มือหนึ่ง (100%)</strong>
+                            </p>
+                            <p style="font-size: 0.85rem; color: var(--brand-terracotta); font-weight: 700;">
+                                ยอดชำระสุทธิ: ฿1,089 (รวมมัดจำ ฿500 แล้ว)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="rental-dates-banner">
+                        <div>
+                            <span style="color: var(--text-muted); display: block; font-size: 0.75rem;">วันเริ่มเช่า (ใส่ออกงาน)</span>
+                            <strong>📅 01 ต.ค. 2026</strong>
+                        </div>
+                        <div style="font-size: 1.2rem;">➔</div>
+                        <div style="text-align: right;">
+                            <span style="color: var(--brand-terracotta); display: block; font-size: 0.75rem; font-weight: 700;">กำหนดส่งคืนชุด</span>
+                            <strong style="color: var(--brand-terracotta);">📅 03 ต.ค. 2026 (ก่อน 18:00)</strong>
+                        </div>
+                    </div>
+
+                    <div class="no-wash-card">
+                        <span style="font-size: 1.3rem;">✨</span>
+                        <div>
+                            <strong>คำแนะนำการดูแล: ไม่ต้องซักชุดก่อนส่งคืน!</strong>
+                            <p style="margin-top: 2px;">เมื่อใช้งานเสร็จแล้ว สามารถพับใส่ถุงซักแห้ง Re:Closet ที่เราจัดเตรียมไว้ให้ แล้วส่งคืนได้ทันที ร้านจะทำความสะอาดด้วยระบบโอโซนเองครับ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <div class="card-title">
+                        <span>🚚 ติดตามสถานะคำสั่งเช่า</span>
+                    </div>
+
+                    <ul class="timeline">
+                        <li class="timeline-item done">
+                            <strong>ชำระเงิน & ตรวจสอบตัวตนเรียบร้อยแล้ว</strong>
+                            <div style="color: var(--text-muted);">26 ก.ย. 2026 — 16:45 น.</div>
+                        </li>
+                        <li class="timeline-item active">
+                            <strong style="color: var(--brand-terracotta);">กำลังเตรียมสินค้า & ตรวจเช็ค QC อบฆ่าเชื้อ</strong>
+                            <div style="color: var(--text-muted);">26 ก.ย. 2026 — สถานะปัจจุบัน</div>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>จัดส่งออกจากคลังสินค้า (Express Shipping)</strong>
+                            <div style="color: var(--text-muted);">คาดว่าถึงวันที่ 30 ก.ย. 2026</div>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>ครบกำหนดส่งชุดคืน</strong>
+                            <div style="color: var(--text-muted);">03 ต.ค. 2026 (ภายใน 18:00 น.)</div>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>ตรวจรับชุดคืน & โอนเงินมัดจำ ฿500 คืนเข้าบัญชี</strong>
+                            <div style="color: var(--text-muted);">ภายใน 24 ชม. หลังได้รับชุดคืน</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <div class="card-box">
+                    <div class="card-title">
+                        <span>🔄 ศูนย์แจ้งส่งคืนชุด (Return Hub)</span>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                        เลือกวิธีการส่งคืนชุดเมื่อใส่ออกงานเสร็จเรียบร้อยแล้ว:
+                    </p>
+
+                    <div class="return-options">
+                        <div class="return-tab active" id="tab-pickup" onclick="switchReturnTab('pickup')">
+                            🚛 เรียกรถรับถึงบ้าน (ฟรี)
+                        </div>
+                        <div class="return-tab" id="tab-dropoff" onclick="switchReturnTab('dropoff')">
+                            📦 กรอกเลขพัสดุส่งเอง
+                        </div>
+                    </div>
+
+                    <div class="action-container" id="panel-pickup">
+                        <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 6px;">
+                            ระบุวันที่ต้องการให้รถเข้ารับชุด
+                        </label>
+                        <input type="date" value="2026-10-03" style="width: 100%; padding: 10px; border: 1px solid #CCC; border-radius: 8px; margin-bottom: 10px;">
+                        
+                        <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 6px;">
+                            ช่วงเวลาที่สะดวก
+                        </label>
+                        <select style="width: 100%; padding: 10px; border: 1px solid #CCC; border-radius: 8px; margin-bottom: 12px;">
+                            <option>10:00 - 13:00 น.</option>
+                            <option>13:00 - 16:00 น.</option>
+                            <option>16:00 - 18:00 น.</option>
+                        </select>
+
+                        <button class="btn-action" onclick="confirmPickup()">ยืนยันนัดวันเรียกรถเข้ารับชุด</button>
+                    </div>
+
+                    <div class="action-container" id="panel-dropoff" style="display: none;">
+                        <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 6px;">
+                            เลือกบริษัทขนส่ง
+                        </label>
+                        <select style="width: 100%; padding: 10px; border: 1px solid #CCC; border-radius: 8px; margin-bottom: 10px;">
+                            <option>Flash Express</option>
+                            <option>Kerry Express / KEX</option>
+                            <option>ไปรษณีย์ไทย (EMS)</option>
+                        </select>
+
+                        <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 6px;">
+                            กรอกหมายเลขพัสดุ (Tracking No.)
+                        </label>
+                        <input type="text" id="tracking-input" placeholder="เช่น TH0123456789" style="width: 100%; padding: 10px; border: 1px solid #CCC; border-radius: 8px; margin-bottom: 12px;">
+
+                        <button class="btn-action" onclick="submitTracking()">แจ้งเลขพัสดุส่งคืน</button>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <div class="card-title">
+                        <span>💰 สถานะการคืนเงินมัดจำ (฿500)</span>
+                    </div>
+
+                    <div style="background: #FAF9F6; padding: 15px; border-radius: var(--radius-md); border: 1px solid #EEE;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                            <span style="color: var(--text-muted);">บัญชีรับเงินคืน:</span>
+                            <strong>ธ.กสิกรไทย (123-x-xxx65-4)</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 10px;">
+                            <span style="color: var(--text-muted);">สถานะปัจจุบัน:</span>
+                            <span style="color: #B8860B; font-weight: 700;">⏳ รอดำเนินการส่งชุดคืน</span>
+                        </div>
+                        <div style="height: 8px; background: #E0E0E0; border-radius: 10px; overflow: hidden;">
+                            <div style="width: 25%; height: 100%; background: var(--brand-terracotta);"></div>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; text-align: center;">
+                            เงินมัดจำจะโอนคืนอัตโนมัติภายใน 24 ชม. หลังจากชุดส่งกลับถึงคลัง Re:Closet
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 RE:CLOSET — Sustainable Clothes Rental Platform. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function switchReturnTab(type) {
+            const tabPickup = document.getElementById('tab-pickup');
+            const tabDropoff = document.getElementById('tab-dropoff');
+            const panelPickup = document.getElementById('panel-pickup');
+            const panelDropoff = document.getElementById('panel-dropoff');
+
+            if (type === 'pickup') {
+                tabPickup.classList.add('active');
+                tabDropoff.classList.remove('active');
+                panelPickup.style.display = 'block';
+                panelDropoff.style.display = 'none';
+            } else {
+                tabDropoff.classList.add('active');
+                tabPickup.classList.remove('active');
+                panelDropoff.style.display = 'block';
+                panelPickup.style.display = 'none';
+            }
+        }
+
+        function confirmPickup() {
+            const panel = document.getElementById('panel-pickup');
+            panel.innerHTML = `
+                <div style="text-align: center; padding: 15px 0;">
+                    <div style="font-size: 2rem; margin-bottom: 6px;">🚚✅</div>
+                    <strong style="color: var(--brand-green); font-size: 1rem;">บันทึกเวลานัดเข้ารับชุดสำเร็จ!</strong>
+                    <p style="font-size: 0.8rem; color: #666; margin-top: 4px;">
+                        พนักงานจะโทรหาคุณก่อนเข้ารับชุดในวันที่ 03 ต.ค. 2026
+                    </p>
+                </div>
+            `;
+        }
+
+        function submitTracking() {
+            const trackingNo = document.getElementById('tracking-input').value;
+            if (!trackingNo) {
+                alert('กรุณากรอกหมายเลขพัสดุให้ครบถ้วนครับ');
+                return;
+            }
+            const panel = document.getElementById('panel-dropoff');
+            panel.innerHTML = `
+                <div style="text-align: center; padding: 15px 0;">
+                    <div style="font-size: 2rem; margin-bottom: 6px;">📦✅</div>
+                    <strong style="color: var(--brand-green); font-size: 1rem;">บันทึกเลขพัสดุเรียบร้อย!</strong>
+                    <p style="font-size: 0.8rem; color: #666; margin-top: 4px;">
+                        หมายเลขพัสดุ: <strong>${trackingNo}</strong><br>
+                        ระบบจะติดตามสถานะและโอนมัดจำคืนทันทีที่ได้รับสินค้า
+                    </p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

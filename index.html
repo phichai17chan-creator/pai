@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกลุคเช่าชุดสุดพิเศษ | Re:Closet</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Prompt:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-color: #F6F4EF;
+            --card-bg: #FFFFFF;
+            --text-main: #1A1918;
+            --text-muted: #666059;
+            --brand-green: #2D4030;
+            --brand-sage: #8A9A86;
+            --brand-terracotta: #C86D51;
+            --brand-cream: #EFE8DC;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header & Stepper --- */
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--brand-green);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .step-item {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .step-item.active {
+            color: var(--brand-green);
+        }
+
+        .step-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #E0E0E0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .step-item.active .step-num {
+            background: var(--brand-green);
+            color: white;
+        }
+
+        /* --- Top Hero Banner --- */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-soft);
+            background: #EBE5D8;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 520px;
+            background: rgba(246, 244, 239, 0.75);
+            backdrop-filter: blur(8px);
+            padding: 20px 25px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            color: var(--brand-green);
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .page-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Product Catalog Grid --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 360px));
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 55px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge-new {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #E88329;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-size {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .brand-name {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.35;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 18px;
+            margin-top: auto;
+        }
+
+        .price-main {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--brand-terracotta);
+        }
+
+        .price-unit {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .price-original {
+            font-size: 0.8rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 6px;
+        }
+
+        .stock-status {
+            font-size: 0.8rem;
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .btn-rent {
+            display: block;
+            width: 100%;
+            background: var(--brand-green);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 13px 0;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+
+        .btn-rent:hover {
+            background: #1E2B20;
+        }
+
+        /* --- Section 3 ขั้นตอนการเช่าชุด --- */
+        .how-it-works-section {
+            background: #EFE8DC;
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .how-title {
+            text-align: center;
+            font-size: 1.6rem;
+            color: var(--brand-green);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .step-card {
+            background: #FFFFFF;
+            border-radius: var(--radius-md);
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--brand-green);
+            line-height: 1;
+            margin-bottom: 12px;
+            opacity: 0.85;
+        }
+
+        .step-heading {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .hero-banner img {
+                height: 220px;
+            }
+            .page-title {
+                font-size: 1.3rem;
+            }
+            .page-subtitle {
+                font-size: 0.8rem;
+            }
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            .stepper {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <a href="rental_clothes.html" class="logo font-serif">Re:Closet</a>
+            <div class="stepper">
+                <div class="step-item active">
+                    <span class="step-num">1</span> เลือกลุค
+                </div>
+                <span>➔</span>
+                <a href="checkout.html" class="step-item">
+                    <span class="step-num">2</span> ยืนยันตัวตน & ชำระเงิน
+                </a>
+                <span>➔</span>
+                <div class="step-item">
+                    <span class="step-num">3</span> รอรับชุดที่บ้าน
+                </div>
+            </div>
+        </header>
+
+        <!-- Top Banner (แบนเนอร์ด้านบนสุด) -->
+        <div class="hero-banner">
+            <img src="b.png" alt="Re:Closet Banner">
+            <div class="hero-overlay">
+                <h1 class="page-title font-serif">เลือกลุคที่ใช่ สำหรับวันพิเศษของคุณ</h1>
+                <p class="page-subtitle">ชุดแบรนด์เนมคุณภาพสูง ทำความสะอาดฆ่าเชื้อ 100% พร้อมส่งถึงบ้าน</p>
+            </div>
+        </div>
+
+        <!-- รายการสินค้า -->
+        <div class="product-grid">
+            <!-- สินค้าที่ 1 -->
+            <div class="product-card">
+                <div class="card-image-wrapper">
+                    <span class="badge-new">NEW มือหนึ่ง</span>
+                    <span class="badge-size">SIZE S-M</span>
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Silk Dress">
+                </div>
+                <div class="card-body">
+                    <div class="brand-name">ZARA PREMIUM COLLECTION</div>
+                    <h3 class="product-name font-serif">Silk-Blend Pleated Satin Midi Dress</h3>
+                    <div class="price-row">
+                        <div>
+                            <span class="price-main">฿490</span>
+                            <span class="price-unit">/ 3 วัน</span>
+                            <span class="price-original">฿3,290</span>
+                        </div>
+                        <span class="stock-status">พร้อมส่งวันนี้</span>
+                    </div>
+                    <a href="product_detail.html" class="btn-rent">กดเช่าชุดนี้</a>
+                </div>
+            </div>
+
+            <!-- สินค้าที่ 2 -->
+            <div class="product-card">
+                <div class="card-image-wrapper">
+                    <span class="badge-new" style="background: #2D4030;">ยอดนิยม</span>
+                    <span class="badge-size">SIZE M</span>
+                    <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80" alt="Evening Dress">
+                </div>
+                <div class="card-body">
+                    <div class="brand-name">MANGO ELEGANT LINE</div>
+                    <h3 class="product-name font-serif">Emerald Velvet Off-Shoulder Gown</h3>
+                    <div class="price-row">
+                        <div>
+                            <span class="price-main">฿590</span>
+                            <span class="price-unit">/ 3 วัน</span>
+                            <span class="price-original">฿4,590</span>
+                        </div>
+                        <span class="stock-status">พร้อมส่งวันนี้</span>
+                    </div>
+                    <a href="product_detail.html" class="btn-rent">กดเช่าชุดนี้</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ส่วน 3 ขั้นตอนเช่าชุด -->
+        <section class="how-it-works-section">
+            <h2 class="how-title font-serif">3 ขั้นตอนเช่าชุดง่ายๆ แค่ปลายนิ้ว</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h3 class="step-heading">เลือกชุด & ระบุวันใช้งาน</h3>
+                    <p class="step-desc">เลือกชุดที่ถูกใจ เลือกระยะเวลาเช่า (3 วัน / 5 วัน / 7 วัน) แล้วกดจองได้ทันที</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h3 class="step-heading">รับชุดส่งตรงถึงหน้าบ้าน</h3>
+                    <p class="step-desc">ชุดจะถูกจัดส่งไปในกระเป๋ากันน้ำ พร้อมใส่ได้เลย ไม่ต้องซักซ้ำ</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h3 class="step-heading">ใส่เสร็จใส่ถุงคืนได้เลย</h3>
+                    <p class="step-desc">ไม่ต้องซักแห้งหรือซักรีดเอง แค่แปะใบลาเบลคืนสินค้าแล้วเรียกพี่ไปรษณีย์มารับ</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 RE:CLOSET — Sustainable Clothes Rental Platform. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
